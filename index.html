@@ -1,107 +1,1369 @@
-<!-- ONLY showing relevant updated sections so you can paste cleanly -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YYJ Days Inn Help</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,sans-serif;font-size:15px;line-height:1.6;background:#f5f5f2;color:#1a1a1a;display:flex;min-height:100vh}
+a{color:#185fa5;text-decoration:none}
+a:hover{text-decoration:underline}
+h2{font-size:18px;font-weight:600;margin:1.5rem 0 .6rem;color:#1a1a1a;border-bottom:2px solid #185fa5;padding-bottom:4px}
+h3{font-size:15px;font-weight:600;margin:1.2rem 0 .4rem;color:#0c447c}
+h4{font-size:14px;font-weight:600;margin:1rem 0 .3rem;color:#1a1a1a}
+p{margin-bottom:.7rem}
+ul,ol{margin:.4rem 0 .7rem 1.4rem}
+li{margin-bottom:.25rem}
+code{background:#e8edf2;border-radius:3px;padding:1px 5px;font-size:13px}
+.highlight{background:#fff3cd;border-radius:2px}
+#sidebar{width:240px;min-width:240px;background:#1a2a3a;color:#cdd8e3;position:sticky;top:0;height:100vh;overflow-y:auto;padding:0;flex-shrink:0}
+#sidebar-header{padding:14px 16px;background:#0c1e2e;border-bottom:1px solid #2a3f52}
+#sidebar-header h1{font-size:15px;font-weight:600;color:#fff;line-height:1.3}
+#sidebar-header p{font-size:11px;color:#8a9bb0;margin:2px 0 0}
+#search-box{padding:10px 12px;background:#0c1e2e;border-bottom:1px solid #2a3f52}
+#search-box input{width:100%;padding:7px 10px;border-radius:6px;border:1px solid #2a3f52;background:#1a2a3a;color:#fff;font-size:13px;outline:none}
+#search-box input::placeholder{color:#5a6e7e}
+#search-box input:focus{border-color:#378add}
+#search-results{display:none;position:absolute;left:0;right:0;background:#1a2a3a;border:1px solid #2a3f52;border-radius:0 0 6px 6px;z-index:100;max-height:300px;overflow-y:auto;font-size:13px}
+#search-results .sr-item{padding:8px 12px;cursor:pointer;border-bottom:1px solid #2a3f52;color:#cdd8e3}
+#search-results .sr-item:hover{background:#2a3f52}
+#search-results .sr-item .sr-section{font-size:11px;color:#5a6e7e}
+#search-wrap{position:relative}
+nav ul{list-style:none;margin:0;padding:8px 0}
+nav ul li a{display:block;padding:7px 16px;font-size:13px;color:#aabccc;border-left:3px solid transparent;transition:all .15s}
+nav ul li a:hover,nav ul li a.active{background:#2a3f52;color:#fff;border-left-color:#378add;text-decoration:none}
+nav ul li.nav-section{padding:10px 16px 4px;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#5a6e7e;font-weight:600}
+#main{flex:1;padding:24px 32px;max-width:900px;overflow-y:auto}
+.section{display:none}
+.section.active{display:block}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:500}
+.badge-blue{background:#e6f1fb;color:#185fa5}
+.badge-green{background:#eaf3de;color:#3b6d11}
+.badge-amber{background:#faeeda;color:#854f0b}
+.badge-red{background:#fcebeb;color:#a32d2d}
+.info-box{background:#e6f1fb;border-left:3px solid #378add;border-radius:0 6px 6px 0;padding:10px 14px;margin:.8rem 0;font-size:14px}
+.warn-box{background:#faeeda;border-left:3px solid #ef9f27;border-radius:0 6px 6px 0;padding:10px 14px;margin:.8rem 0;font-size:14px}
+.alert-box{background:#fcebeb;border-left:3px solid #e24b4a;border-radius:0 6px 6px 0;padding:10px 14px;margin:.8rem 0;font-size:14px}
+.card{background:#fff;border:1px solid #d8dde3;border-radius:8px;padding:14px 18px;margin:.8rem 0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:.8rem 0}
+table{width:100%;border-collapse:collapse;margin:.8rem 0;font-size:14px}
+th{background:#e8edf2;text-align:left;padding:8px 10px;font-weight:600;border:1px solid #d0d5db}
+td{padding:7px 10px;border:1px solid #d0d5db;vertical-align:top}
+tr:nth-child(even){background:#f8f9fa}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:.8rem 0}
+.contact-card{background:#fff;border:1px solid #d8dde3;border-radius:8px;padding:12px 14px}
+.contact-card h4{font-size:13px;color:#5a6e7e;font-weight:500;margin:0 0 4px;text-transform:uppercase;letter-spacing:.05em}
+.contact-card p{font-size:14px;margin:0 0 2px;font-weight:500}
+.contact-card a{font-size:13px;color:#185fa5}
 
-<!-- ===================== -->
-<!-- SPECIAL FEATURES & PETS -->
-<!-- ===================== -->
+/* Room card with photo */
+.room-block{background:#fff;border:1px solid #d8dde3;border-radius:10px;margin:0 0 1.5rem;overflow:hidden}
+.room-block-inner{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.room-photos{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#d8dde3}
+.room-photos img{width:100%;height:150px;object-fit:cover;display:block}
+.room-photos img.solo{grid-column:span 2;height:200px}
+.room-photos .ph{background:#e8edf2;display:flex;align-items:center;justify-content:center;height:150px;font-size:12px;color:#8a9bb0;text-align:center;padding:8px}
+.room-photos .ph.solo{grid-column:span 2;height:200px}
+.room-info{padding:16px 18px}
+.room-info h3{margin:0 0 6px;font-size:16px;color:#0c447c}
+.room-info .room-tag{font-size:12px;color:#5a6e7e;margin:0 0 8px;font-style:italic}
+.room-info p,.room-info li{font-size:14px}
+.room-info ul{margin:.3rem 0 .5rem 1.2rem}
 
-<h2>Special Features & Pets</h2>
+/* Common areas grid */
+.common-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:1rem 0}
+.common-card{background:#fff;border:1px solid #d8dde3;border-radius:10px;overflow:hidden}
+.common-card img{width:100%;height:180px;object-fit:cover;display:block}
+.common-card .ph{background:#e8edf2;height:180px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8a9bb0;text-align:center;padding:12px}
+.common-card-label{padding:10px 14px;font-size:14px;font-weight:600;color:#1a1a1a}
 
-<h3>Pets</h3>
+/* Video placeholders */
+.video-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:.8rem 0 2rem}
+.video-placeholder{background:#e8edf2;border:1.5px dashed #b0b8c4;border-radius:8px;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;text-align:center}
+.vp-icon{width:40px;height:40px;background:#c0c8d4;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.vp-icon:after{content:'';display:block;width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:16px solid #8a9bb0;margin-left:4px}
+.vp-label{font-weight:600;font-size:14px;color:#4a5a6a}
+.vp-sub{font-size:12px;color:#8a9bb0}
+iframe.room-video{width:100%;height:200px;border-radius:8px;border:1px solid #d8dde3}
 
-<p><strong>Service animals are not considered pets and are not subject to pet fees.</strong></p>
+:root{
+  --brand-blue:#034A84;
+  --brand-yellow:#FFCB20;
+  --brand-yellow-soft:#fced78;
+  --nav-bg:#0f2f52;
+  --nav-bg-2:#0a233d;
+  --nav-text:#d7e4f2;
+  --nav-muted:#8fa8c0;
+  --panel:#ffffff;
+  --bg:#f6f8fb;
+}
+body{background:var(--bg)}
+a{color:var(--brand-blue)}
+h2{border-bottom-color:var(--brand-blue)}
+h3{color:var(--brand-blue)}
+#sidebar{background:var(--nav-bg)}
+#sidebar-header,#search-box{background:var(--nav-bg-2);border-bottom-color:#234d74}
+#sidebar-header h1{font-size:16px}
+#sidebar-header p{color:var(--nav-muted)}
+#search-box input{border-color:#2a5d8b;background:#12395f}
+#search-box input:focus{border-color:var(--brand-yellow)}
+#search-results{background:#12395f;border-color:#2a5d8b}
+#search-results .sr-item{border-bottom-color:#2a5d8b;color:#eef5fb}
+#search-results .sr-item:hover{background:#194975}
+#search-results .sr-item .sr-section{color:#b7cae0}
+nav ul li a{color:var(--nav-text)}
+nav ul li a:hover,nav ul li a.active{background:#194975;border-left-color:var(--brand-yellow)}
+nav ul li.nav-section{color:#99b5d0}
+.badge-blue,.info-box{background:#eef5fc;border-left-color:var(--brand-blue)}
+.warn-box{background:#fff7db}
+.alert-box{background:#fef0ef}
+.card,.room-block,.common-card,.contact-card{box-shadow:0 1px 3px rgba(3,74,132,.08)}
+#main{max-width:1100px;padding-top:18px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 18px;padding:14px 18px;background:#fff;border:1px solid #dde5ee;border-radius:12px;box-shadow:0 1px 3px rgba(3,74,132,.06)}
+.topbar-title{font-size:20px;font-weight:700;color:#12395f}
+.topbar-sub{font-size:13px;color:#5c7287;margin-top:2px}
+.home-hero{background:linear-gradient(135deg,#0f2f52 0%, #034A84 100%);color:#fff;border-radius:16px;padding:28px 28px 24px;margin-bottom:20px;box-shadow:0 8px 24px rgba(3,74,132,.16)}
+.home-hero h2{color:#fff;border:none;margin:0 0 8px;padding:0;font-size:28px}
+.home-hero p{margin:0;color:#e4eef8;max-width:760px}
+.home-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.home-btn{display:inline-block;padding:10px 14px;border-radius:10px;background:#fff;color:#0f2f52;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.4)}
+.home-btn.secondary{background:rgba(255,255,255,.12);color:#fff}
+.quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:18px 0}
+.quick-card{background:#fff;border:1px solid #dde5ee;border-radius:14px;padding:16px;box-shadow:0 1px 3px rgba(3,74,132,.05)}
+.quick-card h3{margin:0 0 8px;font-size:16px}
+.quick-card p{font-size:14px;color:#56697c;min-height:42px}
+.quick-card a{display:inline-block;margin-top:8px;font-weight:600}
+.updates-list{background:#fff;border:1px solid #dde5ee;border-radius:14px;padding:18px}
+.updates-list li{margin-bottom:8px}
+@media (max-width: 920px){
+  body{display:block}
+  #sidebar{position:relative;height:auto;width:100%;min-width:0}
+  #main{max-width:none;padding:16px}
+  .topbar{padding:12px 14px}
+  .home-hero{padding:20px}
+}
 
-<ul>
-  <li>Allowed in designated pet-friendly rooms on the first floor (alley side)</li>
-  <li>Pet fee applies</li>
-</ul>
+</style>
+</head>
+<body>
 
-<p>
-<a href="#service-dogs">Guide Dog & Service Dog Certification Policy</a>
-</p>
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h1>YYJ Days Inn Help</h1>
+    <p>Front Desk Reference</p>
+  </div>
+  <div id="search-box">
+    <div id="search-wrap">
+      <input type="text" id="search-input" placeholder="Search anything..." autocomplete="off">
+      <div id="search-results"></div>
+    </div>
+  </div>
+  <nav>
+    <ul id="nav-list">
+      <li class="nav-section">Start</li>
+      <li><a href="#" data-section="home">Home</a></li>
+      <li class="nav-section">Rooms</li>
+      <li><a href="#" data-section="rooms">Room Types & Photos</a></li>
+      <li><a href="#" data-section="room-features">Special Features & Pets</a></li>
+      <li><a href="#" data-section="amenities">Hotel Amenities</a></li>
+      <li class="nav-section">Operations</li>
+      <li><a href="#" data-section="shuttle">Shuttle</a></li>
+      <li><a href="#" data-section="wifi">WiFi</a></li>
+      <li><a href="#" data-section="tv">TV & Cable</a></li>
+      <li class="nav-section">Reservations</li>
+      <li><a href="#" data-section="reservations">Making Reservations</a></li>
+      <li><a href="#" data-section="rates">Rate Codes</a></li>
+      <li><a href="#" data-section="otas">OTAs & Prepaids</a></li>
+      <li><a href="#" data-section="taxes">Taxes</a></li>
+      <li class="nav-section">Check-in / Check-out</li>
+      <li><a href="#" data-section="checkin">Check-in</a></li>
+      <li><a href="#" data-section="checkout">Check-out</a></li>
+      <li><a href="#" data-section="sellouts">Sell-outs & Cancellations</a></li>
+      <li><a href="#" data-section="payments">Credit Cards & Payments</a></li>
+      <li class="nav-section">Airlines</li>
+      <li><a href="#" data-section="airlines">Crew & Airline Procedures</a></li>
+      <li><a href="#" data-section="distressed">Distressed Passengers</a></li>
+      <li class="nav-section">Policies</li>
+      <li><a href="#" data-section="rewards">Wyndham Rewards</a></li>
+      <li><a href="#" data-section="security">Security & Privacy</a></li>
+      <li><a href="#" data-section="guestpolicies">Guest Policies</a></li>
+      <li><a href="#" data-section="housekeeping">Housekeeping & Maintenance</a></li>
+      <li class="nav-section">Reference</li>
+      <li><a href="#" data-section="videos">Training Videos</a></li>
+      <li><a href="#" data-section="contacts">Links & Contacts</a></li>
+    </ul>
+  </nav>
+</div>
 
-<!-- ===================== -->
+<div id="main">
+<div class="topbar">
+  <div>
+    <div class="topbar-title">YYJ Days Inn Help</div>
+    <div class="topbar-sub">Internal manual and searchable front desk reference</div>
+  </div>
+  <div class="badge badge-blue">Updated layout</div>
+</div>
+
+
+
+<div class="section active" id="sec-home">
+  <div class="home-hero">
+    <h2>Updates</h2>
+    <p>Most recent updates are shown first.</p>
+    <div class="home-actions">
+      <a class="home-btn" href="#" data-section-link="tv">TV & Cable</a>
+      <a class="home-btn" href="#" data-section-link="rewards">Wyndham Rewards</a>
+      <a class="home-btn" href="#" data-section-link="rooms">Room Types & Photos</a>
+      <a class="home-btn" href="#" data-section-link="contacts">Contacts</a>
+      <a class="home-btn secondary" href="https://sites.google.com/view/yyjdaysinn-help/home" target="_blank" rel="noopener">Current Google Site</a>
+    </div>
+  </div>
+
+  <div class="updates-list">
+    <div class="card">
+      <h3>TV Remote Issues <span class="badge badge-blue">03-17-26</span></h3>
+      <p>If the remote is not controlling the TV please follow these steps:</p>
+      <ol>
+        <li>Ask the guest what type of TV they have, then write all the numbers down for that TV type or take a picture on your phone.</li>
+      </ol>
+      <h4>TV Remote Codes</h4>
+      <table>
+        <tr><th>TV Type</th><th>TV Remote Code</th></tr>
+        <tr><td>LG</td><td>0178, 1758, 0030, 0856</td></tr>
+        <tr><td>Samsung</td><td>0812, 0060, 0178, 0030, 0587, 0766</td></tr>
+        <tr><td>Sharp</td><td>0093</td></tr>
+        <tr><td>Hisense</td><td>0748, 1314, 1660, 2098, 2355</td></tr>
+      </table>
+      <h4>Direct Code Steps</h4>
+      <ol>
+        <li>Press TV Power Key</li>
+        <li>Press and hold Setup until LED blinks twice</li>
+        <li>Enter the first code for the TV brand</li>
+        <li>Press TV Power. If it turns off it worked. Test TV input and volume as well.</li>
+        <li>If it doesn't work, repeat steps 1 to 4 with the next code.</li>
+      </ol>
+      <p>If you have a locked channel that you know we should have, you can try one of the following codes. Follow the link.</p>
+    </div>
+
+    <div class="card">
+      <h3>Wyndham Rewards For Corporate Guests <span class="badge badge-blue">01-20-26</span></h3>
+      <p>The only companies that can’t get Wyndham Rewards are the ones that have their own special rate codes, fixed discount, such as VIH, Paladin, Wismattac, Hertel Meats, and airlines. If it’s a company that uses either LTCP or LSRP, they are allowed, percentage discount.</p>
+    </div>
+  </div>
+</div>
+<!-- ROOMS WITH PHOTOS -->
+
+<div class="section" id="sec-rooms">
+  <h2>Room Types & Photos</h2>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/nqq2-bedroom.jpg" alt="NQQ2 bedroom" onerror="this.style.display='none'">
+        <img class="solo" src="images/nqq2-standard.jpg" alt="NQQ2 standard" onerror="this.style.display='none'">
+        <img src="images/nqq2-bathroom.jpg" alt="NQQ2 bathroom" onerror="this.style.display='none'">
+      </div>
+      <div class="room-info">
+        <h3>NQQ2 — Two Queens (Standard)</h3>
+        <p class="room-tag">Front building · Upper floors · Windows don't open · Near elevator</p>
+        <ul>
+          <li>Two queen beds</li>
+          <li>Fridge, microwave, coffee maker</li>
+          <li>Rooms 232, 234, 336, 338, 340 have balconies</li>
+          <li>WestJet crew usually assigned here</li>
+          <li>Highest-paying guests on 4th/3rd floor</li>
+          <li>Do not put kids on 3rd or 4th floor</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <div class="ph solo">NQQ1 — Photo placeholder (identical to NQQ2, faces back wall)</div>
+      </div>
+      <div class="room-info">
+        <h3>NQQ1 — Two Queens (Pet-Friendly)</h3>
+        <p class="room-tag">Ground floor · Back · Faces alley · Pet-designated</p>
+        <ul>
+          <li>Two queen beds — identical quality to NQQ2</li>
+          <li>Fridge & microwave</li>
+          <li>Not bookable online (unless opened by management)</li>
+                    <li>Guests paying lowest rates often assigned here</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/nq1-1.jpg" alt="NQ1 bedroom" onerror="this.style.display='none'">
+        <div class="ph">NQ1 — Bathroom photo placeholder</div>
+      </div>
+      <div class="room-info">
+        <h3>NQ1 — One Queen</h3>
+        <p class="room-tag">Standard single queen</p>
+        <ul>
+          <li>One queen bed</li>
+          <li>Usually booked by Kelowna (KF Aerospace) & Pacific Coastal crews</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <div class="ph">PNQ2 — Bedroom photo placeholder</div>
+        <img src="images/nqq2-bathroom.jpg" alt="PNQ2 accessible bathroom" onerror="this.style.display='none'">
+      </div>
+      <div class="room-info">
+        <h3>PNQ2 — Accessible, Two Queens</h3>
+        <p class="room-tag">Only room with full lift clearance under bed</p>
+        <ul>
+          <li>Two queen beds</li>
+          <li>Walk-in shower with bench and safety rails</li>
+          <li>Space for lift under bed — unique to this room</li>
+          <li>Other accessible rooms (no lift space): ENQ1s, ENQ2 248/249, END2 115/116/133, NQQ2s, NK1s</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img src="images/enq1-1.jpg" alt="ENQ1 bedroom" onerror="this.style.display='none'">
+        <div class="ph">ENQ1 — Additional photo placeholder</div>
+      </div>
+      <div class="room-info">
+        <h3>ENQ1 — One Queen, Kitchenette</h3>
+        <p class="room-tag">One queen bed with kitchenette</p>
+        <ul>
+          <li>One queen bed</li>
+          <li>Full kitchenette</li>
+                  </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <div class="ph solo">ENQ2 — Photo placeholder</div>
+      </div>
+      <div class="room-info">
+        <h3>ENQ2 — Two Queens, Kitchenette</h3>
+        <p class="room-tag">Back section · 2nd floor</p>
+        <ul>
+          <li>Two queen beds</li>
+          <li>Full kitchenette</li>
+                  </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/end2-1.jpg" alt="END2 bedroom" onerror="this.style.display='none'">
+        <div class="ph">END2 — Kitchenette photo placeholder</div>
+        <div class="ph">END2 — Bathroom photo placeholder</div>
+      </div>
+      <div class="room-info">
+        <h3>END2 — Two Doubles, Kitchenette</h3>
+        <p class="room-tag">Ground floor · Back section</p>
+        <ul>
+          <li>Two double beds</li>
+          <li>Full kitchenette: fridge, microwave, two elements, dishes</li>
+          <li>Rooms 115 & 116 are pet-friendly and cot-compatible</li>
+          <li>Room 133: pet-friendly, cot-compatible</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/enq3-1.jpg" alt="ENQ3 corner" onerror="this.style.display='none'">
+        <div class="ph">ENQ3 — Kitchenette photo placeholder</div>
+        <div class="ph">ENQ3 — Bathroom photo placeholder</div>
+      </div>
+      <div class="room-info">
+        <h3>ENQ3 — Two Queens, Corner</h3>
+        <p class="room-tag">Back section · 2nd floor · Larger corner layout</p>
+        <ul>
+          <li>Two queen beds</li>
+          <li>Full kitchenette</li>
+          <li>Larger than ENQ2 due to corner layout</li>
+          <li>Rooms 248, 249, 266, 267 — cot-compatible</li>
+          <li>Good upgrade option from ENQ2</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img src="images/nk1-1.jpg" alt="NK1 bedroom" onerror="this.style.display='none'">
+        <img src="images/nk1-2.jpg" alt="NK1 alternate" onerror="this.style.display='none'">
+      </div>
+      <div class="room-info">
+        <h3>NK1 — One King</h3>
+        <p class="room-tag">Front section</p>
+        <ul>
+          <li>One king bed</li>
+          <li>Fridge, microwave, coffee maker</li>
+          <li>Cot-compatible (all NK1s)</li>
+          <li>Higher-rate guests in lower room numbers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/s11-1.jpg" alt="S11 bedroom" onerror="this.style.display='none'">
+        <img class="solo" src="images/s11-2.jpg" alt="S11 kitchenette" onerror="this.style.display='none'">
+      </div>
+      <div class="room-info">
+        <h3>S11 — One Queen, Kitchenette</h3>
+        <p class="room-tag">Ground floor · Rooms 108–114 · Poolside/Garden view</p>
+        <ul>
+          <li>One queen bed</li>
+          <li>Full kitchenette: fridge, microwave, hotplate, Keurig, sink, dishes</li>
+          <li>Hotplate requires magnetic pots/pans</li>
+          <li>Good upgrade option from NQ1 (+$30/night)</li>
+          <li>Cot-compatible</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+<div class="room-block">
+    <div class="room-block-inner">
+      <div class="room-photos">
+        <img class="solo" src="images/s12-1.jpg" alt="S12 poolside" onerror="this.style.display='none'">
+        <img src="images/s12-2.jpg" alt="S12 bedroom" onerror="this.style.display='none'">
+        <img src="images/s12-2.jpg" alt="S12 bathroom" onerror="this.style.display='none'">
+      </div>
+      <div class="room-info">
+        <h3>S12 — Two Queens, Poolside</h3>
+        <p class="room-tag">Ground floor · Back section + 2 near front desk · Pool/Garden view</p>
+        <ul>
+          <li>Two queen beds</li>
+          <li>Fridge & microwave</li>
+          <li>Assign 118–128 by rate; save 103 & 105 for near-lobby requests or lowest-rate guests</li>
+          <li>Good upgrade option from NQQ2 (+$40/night)</li>
+        </ul>
+      </div>
+    </div>
+  </div>  <h2>Hotel Common Areas</h2>
+  <div class="common-grid">
+    <div class="common-card">
+      <div class="ph">Lobby / front desk photo placeholder</div>
+      <div class="common-card-label">Lobby / Front Desk</div>
+    </div>
+    <div class="common-card">
+      <div class="ph">Exterior evening photo placeholder</div>
+      <div class="common-card-label">Exterior (Evening)</div>
+    </div>
+    <div class="common-card">
+      <div class="ph">Exterior and shuttle photo placeholder</div>
+      <div class="common-card-label">Exterior & Courtesy Shuttle</div>
+    </div>
+    <div class="common-card">
+      <div class="ph">Gym photo placeholder</div>
+      <div class="common-card-label">Gym (2nd floor, 7am–9pm, min age 16)</div>
+    </div>
+    <div class="common-card">
+      <div class="ph">Pool / Courtyard — photo placeholder</div>
+      <div class="common-card-label">Pool / Courtyard</div>
+    </div>
+    <div class="common-card">
+      <div class="ph">Breakfast Area — photo placeholder</div>
+      <div class="common-card-label">Breakfast Area</div>
+    </div>
+  </div>
+
+  <h2>Room Assignment Tips</h2>
+  <ul>
+    <li>Read Alerts & Notes in Shift Reports before assigning.</li>
+    <li>Upgrade Diamond guests: NQQ2→S12, ENQ2→ENQ3, NQ1/ENQ1→S11.</li>
+    <li>If oversold, sort by price and upgrade highest-paying, shortest-stay guests first.</li>
+    <li>Don't put kids on 3rd or 4th floor NQQ2s.</li>
+    <li>For NQQ2s: highest-paying on 4th/3rd floor.</li>
+    <li>For S12s: assign 118–128 by rate, save 103 & 105 for near-lobby requests or lowest-rate guests.</li>
+    <li>SNQ2 and NK1: higher-rate guests in lower room numbers (reverse of normal).</li>
+    <li>Fill requests first, then prioritize by rate, then direct bookings.</li>
+    <li>Assign clean/checked-out rooms before occupied rooms for early arrivals.</li>
+    <li>Do NOT use auto-assign until all special-needs and multi-night guests are assigned.</li>
+    <li><strong>Airline room change:</strong> write reason in blue book.</li>
+  </ul>
+
+  <h2>NQQ2 vs NQQ1 — Room Moves</h2>
+  <div class="info-box">NQQ1 and NQQ2 rooms are <strong>identical in quality</strong>. NQQ1 faces the back wall and is pet-designated.</div>
+  <ul>
+    <li>NQQ1 rooms are not bookable online (except last-minute when opened by management).</li>
+    <li>Housekeeping follows strict pet cleaning after any pet stay. Only ~4–5 pet stays/month.</li>
+    <li>Guests paying lowest rates (OTAs, trucking, construction, coast guard) commonly assigned NQQ1.</li>
+    <li>If a guest complains about wall view or pet smell and NQQ2 is available, move them. Offer S12 or ENQ2 upgrade for a fee.</li>
+    <li>If a guest has allergies or pet sensitivities, add to reservation alerts and profile notes.</li>
+  </ul>
+</div>
+
+<!-- ROOM FEATURES -->
+<div class="section" id="sec-room-features">
+  <h2>Special Room Features</h2>
+  <h3>Balconies</h3>
+  <p>NQQ2 rooms 232, 234, 336, 338, and 340 have balconies.</p>
+  <h3>Rooms close to the pub</h3>
+  <p>129, 130, 131, 132, 133, 134, 260, 262, 264, 266, 267</p>
+  <h3>Tips</h3>
+  <ul>
+    <li>Further from front desk = higher room number.</li>
+    <li>Even-numbered rooms face pool; odd-numbered rooms face alley.</li>
+  </ul>
+  <h3>Rooms that fit Cots/Rollaways & Big Crib</h3>
+  <table>
+    <tr><th>Room Type</th><th>Rooms</th></tr>
+    <tr><td>ENQ3</td><td>248, 249, 266, 267</td></tr>
+    <tr><td>END2</td><td>115, 116, 133</td></tr>
+    <tr><td>NQQ2</td><td>440</td></tr>
+    <tr><td>NK1</td><td>All</td></tr>
+    <tr><td>S11</td><td>All</td></tr>
+    <tr><td>SNQ2</td><td>228, 328, 428</td></tr>
+  </table>
+  <p>END2 rooms 115 and 133 are the only pet-friendly rooms that can also accommodate a cot.</p>
+  <h3>Cribs & Cots</h3>
+  <ul>
+    <li>Located in basement storage room by back stairs.</li>
+    <li>Crib bedding is in a box in the laundry room. Cots should be pre-made — check before delivering.</li>
+    <li>No charge for cribs. Cots are $20/day. Extra adults above 2 are also $20/day.</li>
+    <li>Update the <a href="https://docs.google.com/spreadsheets/d/1_UAXAXGTMUvMazJl1_GQXUC0TKkX9_CYYoCuDMIyqSU/edit?usp=sharing" target="_blank">cot tracking sheet</a> every time a cot goes in or comes back.</li>
+  </ul>
+  <h3>Pets</h3>
+  <p><strong>Service animals are not considered pets and are not subject to pet fees.</strong></p>
+  <div class="warn-box">Pets are not to be left unattended. If guests go out briefly they must provide a contact number.</div>
+  <ul>
+    <li>Pets never allowed in courtyard or pool area (health regulations).</li>
+    <li>Pet fee: $20/night, $100/week.</li>
+    <li><strong>Service dogs</strong> allowed in all room types. Try to book into NQQ1 if possible. No pet fee.</li>
+    <li>If a pet is brought into a non-pet room: $75 extra cleaning fee (non-optional).</li>
+    <li>If not yet checked in and a pet-friendly room is available, move them instead of charging the $75 fee.</li>
+  </ul>
+  <p><a href="#" onclick="showSection('guestpolicies'); return false;">Guide Dog &amp; Service Dog Certification Policy</a></p>
+  <h3>Fixed Charges (Most Common)</h3>
+  <table>
+    <tr><th>Charge</th><th>Amount</th></tr>
+    <tr><td>Extra person</td><td>$20/night</td></tr>
+    <tr><td>Cot</td><td>$20/night</td></tr>
+    <tr><td>Pet</td><td>$20/night ($100/week)</td></tr>
+    <tr><td>Extra parking (Park & Fly only)</td><td>$10/day</td></tr>
+    <tr><td>OTA parking (Oct–Mar, at check-in)</td><td>$15/day</td></tr>
+  </table>
+  <h3>Room Capacity</h3>
+  <ul>
+    <li>Maximum: 2 guests per bed.</li>
+    <li>Cot rooms: 1 additional guest allowed.</li>
+    <li>Infants in a crib or sharing parents' bed do not count toward capacity.</li>
+  </ul>
+  <h3>Kitchenettes</h3>
+  <p>Kitchenettes include: fridge, microwave, Keurig, stove or hotplate, toaster, sink, dishes and utensils.</p>
+  <div class="warn-box">Hotplates require magnetic pots/pans. Test with a magnet before bringing to room. Hotplates will show an error unless a pot/pan is on them. Hotplates are in S11s and SNQ2s.</div>
+</div>
+
+<!-- AMENITIES -->
+<div class="section" id="sec-amenities">
+  <h2>Hotel Amenities</h2>
+  <div class="card-grid">
+    <div class="card"><h4>Pool</h4><p>Heated to 80°F. Open 9am–9pm. No animals in courtyard or pool area. Season is weather-dependent.</p></div>
+    <div class="card"><h4>Gym</h4><p>2nd floor. Open 7am–9pm. Minimum age: 16.</p></div>
+    <div class="card"><h4>Breakfast</h4><p>Full hot breakfast daily 5:00am–10:00am. Pancakes, bacon, eggs, sausage, hashbrowns, fruit, muffins, yogurt, oatmeal, toast, bagels, cereal, juice, coffee, tea, hot chocolate, milk.</p></div>
+    <div class="card"><h4>Laundry Room</h4><p>Open 9am–9pm. Last load in dryer by 8pm. $2/load for washer and dryer. Soap & softener available at front desk for $1.50 each. No dyes or chlorine bleach.</p></div>
+    <div class="card"><h4>Pub Coupon</h4><p>All guests receive 20% off coupons to the Dickens Pub. Multiple coupons allowed per stay.</p></div>
+    <div class="card"><h4>Liquor Store</h4><p>9am–11pm daily.</p></div>
+    <div class="card"><h4>EV Charging</h4><p>Located at back of building near first back door.</p></div>
+    <div class="card"><h4>Bikes</h4><p>4 complimentary bikes in lobby for hotel guests. Leisure use only (not for commuting to work). Guest must sign a waiver each use.</p></div>
+    <div class="card"><h4>Ice Machines</h4><p>1st floor near back door/pool entrance, and 2nd floor near room 228.</p></div>
+    <div class="card"><h4>Chromecast</h4><p>All rooms. Connect to room WiFi → open streaming app → cast icon → select room number.</p></div>
+  </div>
+</div>
+
+<!-- SHUTTLE -->
+<div class="section" id="sec-shuttle">
+  <h2>Shuttle</h2>
+  <div class="info-box">We have two shuttles: <strong>Hotel Shuttle</strong> and <strong>Pub Shuttle.</strong></div>
+  <h3>Details</h3>
+  <ul>
+    <li>Capacity: up to 8 people per shuttle.</li>
+    <li>Pets allowed if in containers. No car seats provided.</li>
+    <li>Not handicap accessible.</li>
+  </ul>
+  <h3>Destinations</h3>
+  <ul>
+    <li>BC Ferries (Swartz Bay)</li>
+    <li>Anacortes Ferries / Washington State Ferries</li>
+    <li>AeroCentre (Shell Center)</li>
+    <li>Flight Tower (Victoria Flying Club)</li>
+    <li>Viking Air</li>
+    <li>Main Terminal (Victoria International Airport)</li>
+    <li>Institute of Ocean Sciences (IOS) / Coast Guard Base</li>
+    <li>443 Squadron</li>
+    <li>Enterprise Rental Car</li>
+  </ul>
+  <h3>Hours</h3>
+  <table>
+    <tr><th>Time</th><th>Frequency</th></tr>
+    <tr><td>4:00am – 9:00am</td><td>Every 30 minutes</td></tr>
+    <tr><td>9:00am – 9:45pm</td><td>Every hour</td></tr>
+    <tr><td>After 10pm</td><td>If staff available — never guarantee or invite calls</td></tr>
+  </table>
+  <h3>Logging & Priorities</h3>
+  <ul>
+    <li>All trips must be logged in the shuttle log, including mileage.</li>
+    <li>Conflicting requests: priority goes to whoever is written down first in the Shuttle Request book.</li>
+  </ul>
+  <h3>Break Policy</h3>
+  <ul>
+    <li>Staff should NOT be called back from breaks for shuttle runs.</li>
+    <li>If only one staff at desk and co-worker is on break, tell the guest the estimated wait time.</li>
+    <li>The shuttle is a complimentary courtesy — delays are possible during peak times or breaks.</li>
+    <li>Schedule breaks outside peak shuttle periods when possible.</li>
+  </ul>
+</div>
+
+<!-- WIFI -->
+<div class="section" id="sec-wifi">
+  <h2>WiFi</h2>
+  <h3>Guest Login</h3>
+  <ol>
+    <li>Connect to network: <strong>YYJDaysInn</strong> (not "Days Inn Admin")</li>
+    <li>Enter <strong>room number</strong> and <strong>last name</strong> (or company name for airline rooms)</li>
+    <li>Most phones/tablets will auto-launch the sign-in page</li>
+    <li>PC users may need to open a browser and go to a standard HTTP page (e.g. <a href="http://www.shaw.ca" target="_blank">shaw.ca</a>)</li>
+    <li>If connecting to a secure page directly (banking, email), the sign-in page won't appear — have them go to a non-HTTPS page first</li>
+  </ol>
+  <h3>Troubleshooting Steps</h3>
+  <ol>
+    <li>Verify the correct network (YYJDaysInn, not Days Inn Admin)</li>
+    <li>Check spelling of last name</li>
+    <li>Try "forget network" and reconnect</li>
+    <li>Have guest go to <strong>logout.now</strong> to clear credentials, then reconnect</li>
+    <li>Generate an Authentication Code via the WiFi Code Printer — enter room number to match length of stay</li>
+  </ol>
+  <div class="alert-box">If multiple guests are calling about WiFi at once, call Shaw to fix the issue (not just individual troubleshooting).</div>
+  <h3>Support Numbers</h3>
+  <table>
+    <tr><th>Issue</th><th>Number</th></tr>
+    <tr><td>Individual guest connection or casting</td><td>1-800-581-4407</td></tr>
+    <tr><td>All other WiFi issues</td><td>1-855-249-9434, Option 2</td></tr>
+  </table>
+  <p>If a guest moves rooms they may need to log out of the old room. Have them go to <strong>logout.now</strong> to clear, then reconnect with new room number.</p>
+</div>
+
+<!-- TV -->
+<div class="section" id="sec-tv">
+  <h2>TV Remote Issues</h2>
+  <h3>TV Remote Codes</h3>
+  <table>
+    <tr><th>TV Brand</th><th>Codes to Try</th></tr>
+    <tr><td>LG</td><td>0178, 1758, 0030, 0856</td></tr>
+    <tr><td>Samsung</td><td>0812, 0060, 0178, 0030, 0587, 0766</td></tr>
+    <tr><td>Sharp</td><td>0093</td></tr>
+    <tr><td>Hisense</td><td>0748, 1314, 1660, 2098, 2355</td></tr>
+  </table>
+  <h3>Steps (Direct Code Method)</h3>
+  <ol>
+    <li>Press TV Power key</li>
+    <li>Press and hold Setup until LED blinks twice</li>
+    <li>Enter the first code for the TV brand</li>
+    <li>Press TV Power — if it turns off, it worked. Test input and volume too.</li>
+    <li>If it doesn't work, repeat with the next code</li>
+  </ol>
+  <h3>Shaw Cable Box</h3>
+  <p>First try: unplug the box for 30+ seconds, then plug back in. Boot process can take ~5 minutes.</p>
+  <p>To replace a Shaw cable box:</p>
+  <ol>
+    <li>Get a spare from Nick's office</li>
+    <li>Find the serial number (Host SN) on the back of the new box</li>
+    <li>Install the box in the room</li>
+    <li>Call Shaw Business Support: <strong>1-877-742-9249</strong> → prompts: 1 → 2 → 1 → 4</li>
+    <li>Account number: <strong>012-7112-3840</strong></li>
+    <li>Provide: your name, business name, service address with postal code</li>
+  </ol>
+</div>
+
+<!-- RESERVATIONS -->
+<div class="section" id="sec-reservations">
+  <h2>Making Reservations</h2>
+  <h3>Normal Reservation</h3>
+  <ol>
+    <li>Bookings → Reservations → Look to Book</li>
+    <li>Select dates, number of people → Search</li>
+    <li>Select rate (always try rack first: RROD) → Select</li>
+    <li>Click New Profile (or search for returning guest via magnify glass)</li>
+    <li>Enter Last Name, First Name, Phone, Email, Address, Postal Code</li>
+    <li>Save and Select Profile</li>
+    <li>Enter Credit Card # and Expiration</li>
+    <li>Full read-back of stay info with guest</li>
+    <li>Book Now</li>
+    <li>Add any alerts or fixed charges</li>
+    <li>Confirmation Letter → Email → Send</li>
+  </ol>
+  <div class="info-box"><strong>Full Read-Back includes:</strong> check-in/out dates, room type and rate, people in room, cancellation policy, check-in/out times. Type <code>FRB 24hr cxl</code> every time you do a full read-back.</div>
+  <h3>Company Reservation</h3>
+  <ol>
+    <li>Bookings → Reservations → Look to Book</li>
+    <li>Select dates, people, rooms</li>
+    <li>Enter company name in COMPANY field → tab</li>
+    <li>Click + beside company → Notes — check for PO requirements, direct bill info, room type instructions</li>
+    <li>Select company → Search</li>
+    <li>Select negotiated rate if available → Select</li>
+    <li>New Profile or search for returning guest</li>
+    <li>Enter guest info, CC (or see direct bill instructions)</li>
+    <li>Full read-back → Book Now → Add alerts/charges → Confirmation email</li>
+  </ol>
+  <div class="warn-box">Always put company names in the COMPANY field. Government discounts also require the branch in the company spot.</div>
+  <h3>Park & Fly Reservation</h3>
+  <div class="alert-box">Park & Fly is available October 1 – March 31 only. Must be booked directly through the hotel. Always 7-day cancellation policy.</div>
+  <ol>
+    <li>Check <a href="https://docs.google.com/spreadsheets/d/1_EmCUdfmXpyaRTV-7zo-BnREijj9vE79KLPTVtjI6ZM/edit#gid=0" target="_blank">Parking Availability chart</a> — max 20 spots</li>
+    <li>Bookings → Reservations → Look to Book</li>
+    <li>Select dates, people, rooms</li>
+    <li>Under Company type "Park & Fly" → Select → Search</li>
+    <li>Select Park & Fly rate → follow normal reservation steps</li>
+    <li>In Alerts: note length of parking and shuttle times</li>
+    <li>Add guest to the Parking Availability chart</li>
+    <li>Inform guest they must leave keys in a sealed envelope at front desk</li>
+  </ol>
+  <p><strong>Returning keys:</strong> Must verify guest's ID matches the name or address on the envelope.</p>
+  <p>If a guest stays one night on either end of the trip, they get 14 days of parking included at the P&F rate. Extra days beyond 7 without a stay: $10/day + taxes.</p>
+  <h3>Group Reservations</h3>
+  <ul>
+    <li>5–9 rooms: book yourself via email, get names for each room</li>
+    <li>10+ rooms: direct to FOM → <a href="mailto:fom@airportdaysinn.ca">fom@airportdaysinn.ca</a></li>
+    <li>No group blocks on Fri/Sat between May long weekend and Sept 16</li>
+    <li>Check <a href="https://docs.google.com/spreadsheets/d/1KfYh2akcNvSKkPIwGAn5MFhsJNKJZNbOde7auWFhqPs/edit#gid=0" target="_blank">Group Bookings sheet</a></li>
+  </ul>
+  <h3>Direct Bill Reservation</h3>
+  <ol>
+    <li>Enter company in company field — choose the one with an AR#</li>
+    <li>Make like a regular reservation, but change Reservation Type to CA</li>
+    <li>Change payment method to CA-Cash — this sets it up as a direct bill automatically</li>
+  </ol>
+  <h3>Unaccompanied Minors (Under 18)</h3>
+  <ul>
+    <li>Minimum age to check in unaccompanied: 16</li>
+    <li>Required: completed and signed unaccompanied minor consent form before check-in</li>
+    <li>Required: valid credit card authorization (Canary) from parent/guardian</li>
+  </ul>
+  <h3>No Shows</h3>
+  <ul>
+    <li>Night Audit checks all non-arrivals into system before end of day. If CC is declined, cancel the reservation.</li>
+    <li>AM staff: check bucket for signed reg cards, inform housekeeping, process charges, add "No-Show" note</li>
+    <li>Multi-night stays: try to contact guest; if unreachable, adjust departure to that day</li>
+    <li>Booking.com/Expedia: log in to extranet and click "Mark as no-show"</li>
+  </ul>
+</div>
+
+<!-- RATES -->
+<div class="section" id="sec-rates">
+  <h2>Rate Codes</h2>
+  <div class="info-box">Only offer discounts to guests who ask, or if they're hesitant. Suggest AAA, seniors, or corporate.</div>
+  <table>
+    <tr><th>Code</th><th>Description</th></tr>
+    <tr><td><strong>SFS4</strong></td><td>Use as much as possible</td></tr>
+    <tr><td><strong>SWR1</strong></td><td>Wyndham Rewards Member Rate — must have a number or sign up</td></tr>
+    <tr><td><strong>L15</strong></td><td>If hesitant or seeing a lower rate online — book direct offer</td></tr>
+    <tr><td><strong>SR2</strong></td><td>Last-minute special — guest hesitant, no discounts, or matching online rate</td></tr>
+    <tr><td><strong>LSID</strong></td><td>Islander Discount — lives on Vancouver Island or Gulf Island</td></tr>
+    <tr><td><strong>S3A</strong></td><td>AAA / BCAA / CAA</td></tr>
+    <tr><td><strong>SSR</strong></td><td>Seniors Rate — over 55</td></tr>
+    <tr><td><strong>LTCP</strong></td><td>Corporate Discount — anyone asking for corp rate</td></tr>
+    <tr><td><strong>LMWC</strong></td><td>Event at Mary Winspear Center</td></tr>
+    <tr><td><strong>LPRC</strong></td><td>Event at Panorama Rec Center</td></tr>
+    <tr><td><strong>LSWK</strong></td><td>Weekly rate (7–29 nights)</td></tr>
+    <tr><td><strong>LPHM</strong></td><td>Monthly rate (30+ nights). Tax-free (change to tax type 04).</td></tr>
+    <tr><td><strong>LSFF</strong></td><td>Staff Friends & Family</td></tr>
+    <tr><td><strong>LSED</strong></td><td>Staff Discount</td></tr>
+    <tr><td><strong>SED</strong></td><td>Wyndham Employee Discount (40% off). Must provide Wyndham Discount Rate Form.</td></tr>
+  </table>
+  <h3>Government Rates</h3>
+  <div class="warn-box">Must show Government ID or rate reverts to rack. Always ask if they are here for business or leisure.</div>
+  <table>
+    <tr><th>Code</th><th>Use</th></tr>
+    <tr><td><strong>LNGC</strong></td><td>Federal government, on business</td></tr>
+    <tr><td><strong>LSBG</strong></td><td>Provincial government, on business</td></tr>
+    <tr><td><strong>LSGL</strong></td><td>Government, leisure (not on business)</td></tr>
+    <tr><td><strong>SML</strong></td><td>Canadian military (business or leisure)</td></tr>
+    <tr><td><strong>SGS</strong></td><td>United States Government</td></tr>
+    <tr><td><strong>SGV</strong></td><td>Canadian military on business — use whichever of SML or SGV is cheaper</td></tr>
+  </table>
+  <h3>Giving a Discount</h3>
+  <p><strong>After charges posted:</strong> Select charge → three dots → Post Adjustment → Percentage → enter % → Reason type → Reason text → Process Adjustment.</p>
+  <p><strong>Before charges posted:</strong> Stay Details → Edit → Percentage → enter % → Discount Code with reason → Save.</p>
+  <div class="alert-box">Never use "Miscellaneous" unless it actually applies. Never post "Cash" unless you received cash.</div>
+  <h3>Gift Certificates</h3>
+  <ul>
+    <li>Enter "Gift Certificate" in COMPANY field</li>
+    <li>Blackout: summer weekends (June 1 – Sept 15) and any day with fewer than 15 rooms available</li>
+    <li>Guest must present original GC at check-in with Nick or Lorne's signature</li>
+    <li>If no GC presented at check-in: change rate to RROD</li>
+  </ul>
+</div>
+
+<!-- OTAs -->
+<div class="section" id="sec-otas">
+  <h2>OTAs (Online Travel Agencies)</h2>
+  <div class="info-box">Expedia, Hotels.com, Orbitz, Hotwire, Priceline, Booking.com, etc. They sell our rooms at the same price but take 10–17% commission.</div>
+  <ul>
+    <li>We cannot cancel, change dates, refund, or discount OTA reservations — guest's contract is with the OTA.</li>
+    <li>Do NOT tell the guest the room price shown in our system or the CC number on file.</li>
+  </ul>
+  <h3>Tax Exemptions for OTA Prepaids</h3>
+  <p>Booking.com, Hotwire, Expedia, Priceline, and Agoda prepaid reservations are exempt from room tax — charge GST 5% and MRDT only. Change tax type to <strong>02</strong>.</p>
+  <h3>HotelEngine</h3>
+  <p>Wyndham partner for corporate accounts. All bookings via Virtual Credit Cards (VCC). Rate code: LFY4. Contact: 1-855-567-4683 / support@hotelengine.com.</p>
+</div>
+
+<!-- TAXES -->
+<div class="section" id="sec-taxes">
+  <h2>Taxes</h2>
+  <table>
+    <tr><th>Tax</th><th>Rate</th><th>Notes</th></tr>
+    <tr><td>GST (Federal)</td><td>5%</td><td>Applied to all stays</td></tr>
+    <tr><td>Room Tax (PST + Provincial MRDT)</td><td>8%</td><td>Combined 7% PST + 1% Provincial MRDT</td></tr>
+    <tr><td>City MRDT</td><td>3%</td><td>Effective August 1, 2025. Sidney BIA. Exempt for monthly stays.</td></tr>
+  </table>
+  <p><strong>Total tax rate: 16%</strong> (5% GST + 8% room tax + 3% City MRDT)</p>
+  <div class="info-box">Monthly stays are exempt from MRDT. OTA prepaids (Expedia, Priceline, Hotels.com, Hotwire, Agoda) — charge GST and MRDT only (tax type 02).</div>
+</div>
+
+<!-- CHECK-IN -->
+<div class="section" id="sec-checkin">
+  <h2>Check-in</h2>
+  <h3>Check-in Steps</h3>
+  <ol>
+    <li>Greet guest, get last name</li>
+    <li>Ask for ID and CC used to book (or CC for incidentals if prepaid)</li>
+    <li>Find their reservation</li>
+    <li>Review reg card: verify nights, rate, get initials by rate</li>
+    <li>Verify or have guest fill out address & phone</li>
+    <li>Get vehicle info (or leave blank)</li>
+    <li>Get signature at bottom</li>
+    <li>Pre-auth for room & tax (for non-prepaid reservations)</li>
+  </ol>
+  <h3>Key Points to Tell Every Guest at Check-in</h3>
+  <ul>
+    <li>Breakfast: 5am–10am daily, full hot breakfast</li>
+    <li>WiFi: connect to YYJDaysInn, use room number + last name</li>
+    <li>Dickens Pub coupon: 20% off food</li>
+    <li>Pool hours: 9am–9pm (no animals)</li>
+    <li>Primary parking: back of building</li>
+    <li>Do NOT say room number out loud — point to the number on the key card holder</li>
+    <li>Check-out time, shuttle service</li>
+  </ul>
+  <h3>Early Check-in</h3>
+  <ul>
+    <li>Before 11am: do not check guests into rooms.</li>
+    <li>Standard checkout is 11am, guaranteed check-in is 3pm.</li>
+    <li>If clean S11 is available, offer upgrade: +$30/night. S12: +$40/night above NQQ2 rate.</li>
+    <li>After 11am with clean room: check in immediately.</li>
+    <li>If room not ready: hold luggage, notify housekeeping to prioritize. Do NOT promise a specific time (only 3pm).</li>
+  </ul>
+  <h3>Accompanying Guests</h3>
+  <p>We cannot let someone into a room unless their name was added in advance with permission from the main guest (phone, email, or via Canary). They must provide a CC at check-in or have one sent via Canary.</p>
+  <p>To add: open reservation → Accompanying Profiles (bottom right) → Edit → Attach → search or create profile.</p>
+</div>
+
+<!-- CHECKOUT -->
+<div class="section" id="sec-checkout">
+  <h2>Check-out</h2>
+  <ol>
+    <li>Confirm last name when guest hands over keys with room number</li>
+    <li>Ask if leaving on same CC (if not prepaid)</li>
+    <li>Show guest the folio and total charges</li>
+    <li>Check room out of Opera and post payment</li>
+  </ol>
+  <h3>Direct Bill Checkout</h3>
+  <div class="alert-box">Must say DB in Window 2. NEVER check out a direct bill as cash. Verify it's truly a direct bill.</div>
+  <h3>Adding Direct Bill Routing Instructions</h3>
+  <ol>
+    <li>Open the reservation → Billing → Routing Instructions</li>
+    <li>Click New → Select AR</li>
+    <li>Select "All Charges" or "Room" → move it over</li>
+    <li>Save and Add Payment → Method → Select Direct Bill → Save</li>
+  </ol>
+  <div class="warn-box">If you just click Save (without Save and Add Payment), it won't become a direct bill.</div>
+  <h3>Reversing Cash Payments</h3>
+  <ol>
+    <li>Go to Billing screen</li>
+    <li>Try: select payment → ... → Edit Posting → set to $0.</li>
+    <li>If not: move room charge to Window 2, leave cash in Window 1</li>
+    <li>Post Payment → enter negative amount → Method = Cash → Reference: reason → Apply Payment</li>
+  </ol>
+</div>
+
+<!-- SELL-OUTS -->
+<div class="section" id="sec-sellouts">
+  <h2>Sell-outs & Cancellations</h2>
+  <h3>Understanding Sold-Out Nights</h3>
+  <table>
+    <tr><th>Rooms Available</th><th>Date Range</th><th>Rule</th></tr>
+    <tr><td>10 or fewer</td><td>2+ weeks away</td><td>Only sell to guests staying more than 1 night</td></tr>
+    <tr><td>5 or fewer</td><td>Less than 2 weeks but more than 1 day away</td><td>Only sell to guests staying more than 1 night</td></tr>
+    <tr><td>Any</td><td>Same-day</td><td>Sell every available room</td></tr>
+  </table>
+  <div class="alert-box">Never oversell the hotel for any reason.</div>
+  <h3>Same-Day Cancellations (Non-OTA)</h3>
+  <ul>
+    <li>Inform guest there is a 24-hour cancellation policy — they will still be charged.</li>
+    <li>Tell them the hotel will try to resell the room. If successful, they won't be charged.</li>
+    <li>Record in alerts. Change reservation color to yellow. Share with colleagues.</li>
+    <li>Only cancel the reservation after you've sold it to someone else.</li>
+  </ul>
+  <h3>OTA Same-Day Cancellations</h3>
+  <p>"Unfortunately you booked through a third-party site and we have a 24-hour cancellation policy, so you will still be charged. The third-party site manages the terms of your booking — please contact them directly regarding the cancellation fee."</p>
+</div>
+
+<!-- PAYMENTS -->
+<div class="section" id="sec-payments">
+  <h2>Credit Cards & Payments</h2>
+  <div class="alert-box">No one stays without a valid credit card, unless pre-approved by management (return guests only). Under no circumstances is someone with a Greater Victoria address allowed to stay with cash or debit deposit only.</div>
+  <h3>Pre-Authorizations</h3>
+  <p>Pre-auth = temporary hold on the card. NOT a charge. Amount: room & taxes for length of stay + $50 for incidentals.</p>
+  <div class="warn-box">Do not try to pre-auth debit cards — they don't work properly. Debit is for purchase at checkout only.</div>
+  <h3>US Currency</h3>
+  <p>Only USD accepted as foreign currency. Exchange up to $40 USD. Exchange rate: 1.2x (multiply amount by 1.2).</p>
+  <h3>CC Machine Not Working (Elavon Terminal)</h3>
+  <p>Most common cause: internet cord not plugged in properly. Check lights on the device. If a guest is waiting, use the alternate terminal link (starts with TRVLDG) found under "Credit Card Terminal" in the bookmarks.</p>
+</div>
+
+<!-- AIRLINES -->
+<div class="section" id="sec-airlines">
+  <h2>Airline Crew Procedures</h2>
+  <ul>
+    <li>WestJet has a Google Sheet showing which room to assign each crew member. If you change a room, write why in the blue book and update the sheet.</li>
+    <li>Crew rooms are on the 2nd floor (regular crew only).</li>
+    <li>No crew room transfers based on preference — only for complaints or issues.</li>
+    <li>All air crew complaints must be written in the blue book.</li>
+  </ul>
+  <h3>Porter Air</h3>
+  <ul>
+    <li>Contact: <a href="mailto:olivia.salter@flyporter.com">olivia.salter@flyporter.com</a> | <a href="mailto:crewsched@flyporter.com">crewsched@flyporter.com</a> | 416-619-8571</li>
+  </ul>
+  <h3>Pacific Coastal</h3>
+  <ul>
+    <li>Crew Control: <a href="mailto:crewcontrol@pacificcoastal.com">crewcontrol@pacificcoastal.com</a></li>
+    <li>Crew Scheduling: 604-214-2373 | Dispatch: 604-270-1920 | Distressed: 604-910-9997</li>
+  </ul>
+  <h3>WestJet</h3>
+  <ul>
+    <li>Contact: <a href="mailto:Morag.Misselbrook@fleetcor.com">Morag.Misselbrook@fleetcor.com</a> | <a href="mailto:Vanessa.Dusk-Strom@fleetcor.com">Vanessa.Dusk-Strom@fleetcor.com</a></li>
+    <li>Crew changes: 612-430-6305 | Medical emergency: 1-480-379-1940</li>
+  </ul>
+  <h3>Air Canada</h3>
+  <ul>
+    <li>Contact: <a href="mailto:Jeannine.Lang@apiglobalsolutions.com">Jeannine.Lang@apiglobalsolutions.com</a></li>
+    <li>Crew Scheduling: 516-507-3000 | Incidents: 514-828-3350</li>
+  </ul>
+  <h3>KF Aerospace (Kelowna)</h3>
+  <ul>
+    <li>Contact: <a href="mailto:m.bergen@kfaero.ca">m.bergen@kfaero.ca</a></li>
+  </ul>
+</div>
+
+<!-- DISTRESSED -->
+<div class="section" id="sec-distressed">
+  <h2>Distressed Passengers</h2>
+  <h3>Pacific Coastal Distressed Passenger</h3>
+  <p>Contact Pacific Coastal distressed passenger line: 604-910-9997.</p>
+  <h3>StormX — Distressed Passenger Airline Vouchers</h3>
+  <div class="info-box">Use StormX when you have an airline voucher code and need to charge the airline's virtual credit card for the stay or meal.</div>
+  <ol>
+    <li>Open StormX through the bookmarks bar</li>
+    <li>Enter the voucher code provided by the airline or passenger</li>
+    <li>Do not proceed if the code starts with "ITN" — contact the airline directly for payment</li>
+    <li>Once validated, virtual CC details will be displayed</li>
+    <li>Enter the virtual CC into OPERA and charge room and/or meal as authorized</li>
+  </ol>
+</div>
+
+<!-- REWARDS -->
+<div class="section" id="sec-rewards">
+  <h2>Wyndham Rewards</h2>
+  <p>Main line: <strong>1-866-996-7937</strong></p>
+  <p>To sign someone up: use rate code SWR1 — they need to have or create a Wyndham Rewards number.</p>
+  <p>Companies using LTCP or LSRP (percentage discount) are eligible. Companies with fixed discount codes (VIH, Paladin, Wismattac, Hertel Meats, airlines) are not eligible.</p>
+</div>
+
+<!-- SECURITY -->
+<div class="section" id="sec-security">
+  <h2>Security & Privacy</h2>
+  <ul>
+    <li>Never say the room number out loud — point to the number written on the key card holder</li>
+    <li>Cannot let anyone into a room unless their name is on the reservation</li>
+    <li>Park & Fly keys: return only after verifying guest ID matches name or address on the sealed envelope</li>
+  </ul>
+  <h3>Emergency Procedures</h3>
+  <table>
+    <tr><th>Emergency</th><th>Action</th></tr>
+    <tr><td>Fire / Life Safety</td><td>Call 911. Contact Troy Life & Fire Safety: 250-475-1076</td></tr>
+    <tr><td>Gas Leak</td><td>911 or 1-800-663-9911</td></tr>
+    <tr><td>Power Outage</td><td>BC Hydro: 1-888-769-3766</td></tr>
+    <tr><td>Earthquake / Flood / Dangerous Goods</td><td>1-800-663-3456</td></tr>
+    <tr><td>Poison Control</td><td>1-800-567-8911</td></tr>
+    <tr><td>Alarm Company</td><td>1-800-611-9743</td></tr>
+    <tr><td>RCMP (non-emergency)</td><td>250-656-3931</td></tr>
+  </table>
+</div>
+
 <!-- GUEST POLICIES -->
-<!-- ===================== -->
+<div class="section" id="sec-guestpolicies">
+  <h2>Guest Policies</h2>
+  <h3 id="service-dogs">Guide Dog &amp; Service Dog Certification</h3>
 
-<h3 id="service-dogs">Guide Dog & Service Dog Certification</h3>
+  <h4>Legal Rights</h4>
+  <ul>
+    <li>Service dogs must be allowed anywhere the public is normally permitted, including all hotel areas.</li>
+    <li>Businesses cannot charge extra fees or restrict access. No pet fees apply.</li>
+  </ul>
 
-<h4>Decision Tree (Staff Use)</h4>
-<ul>
-  <li><strong>Is the dog clearly a service dog?</strong>
-    <ul>
-      <li>Yes → Allow access. No pet fee. No further questions.</li>
-      <li>No → Proceed below</li>
-    </ul>
-  </li>
+  <h4>Decision Tree (Staff Use)</h4>
+  <ul>
+    <li><strong>Is the dog clearly a service dog?</strong>
+      <ul>
+        <li>Yes: allow access. No pet fee. No further questions.</li>
+        <li>No: proceed to the next step.</li>
+      </ul>
+    </li>
+    <li><strong>Ask:</strong> “Is this a guide or service dog?”
+      <ul>
+        <li>Yes: proceed to the next step.</li>
+        <li>No: treat as a pet and follow the pet policy.</li>
+      </ul>
+    </li>
+    <li><strong>Request certification if needed:</strong>
+      <ul>
+        <li>Ask to see the official BC Guide Dog &amp; Service Dog Certification Card.</li>
+        <li>Certification is not required, but a BC government ID card is the easiest way to confirm the dog is a service animal.</li>
+        <li>If the guest confirms it is a service dog, allow access and do not charge a pet fee.</li>
+      </ul>
+    </li>
+    <li><strong>Important:</strong>
+      <ul>
+        <li>Do not ask about the person’s disability.</li>
+        <li>Do not deny access based on lack of obvious certification.</li>
+        <li>Do not charge pet fees for service animals.</li>
+      </ul>
+    </li>
+    <li><strong>Emotional support animal?</strong>
+      <ul>
+        <li>Not eligible for certification under the Act.</li>
+        <li>Does not have the same legal protections as a service dog.</li>
+        <li>Pet policy applies.</li>
+      </ul>
+    </li>
+  </ul>
 
-  <li><strong>Ask:</strong> “Is this a guide or service dog?”
-    <ul>
-      <li>Yes → Proceed below</li>
-      <li>No → Treat as pet (pet policy applies)</li>
-    </ul>
-  </li>
+  <h4>References</h4>
+  <ul>
+    <li><a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/15017" target="_blank">BC Guide Dog and Service Dog Act</a></li>
+    <li><a href="https://www2.gov.bc.ca/gov/content/justice/human-rights/guide-and-service-dog" target="_blank">Guide Dog and Service Dog Certification – Province of BC</a></li>
+    <li><a href="https://www2.gov.bc.ca/assets/gov/justice/human-rights/guide-service-dog/guide-service-dog-fact-sheet.pdf" target="_blank">Fact Sheet: Service &amp; Guide Dogs – Government of BC (PDF)</a></li>
+    <li><a href="https://www.ada.gov/topics/service-animals/" target="_blank">More info on Service Animal vs Emotional Support</a></li>
+  </ul>
 
-  <li><strong>Request certification (optional):</strong>
-    <ul>
-      <li>Ask to see BC Guide/Service Dog ID card</li>
-      <li>If provided → Allow, no fee</li>
-      <li>If not provided → Still allow if guest confirms</li>
-    </ul>
-  </li>
+  <h3>Noise Complaints</h3>
+  <ul>
+    <li>Log all noise complaints in the blue book and reservation notes</li>
+    <li>Offer a room move before offering a discount when possible</li>
+    <li>Staff are empowered to reduce charges by up to 10% for legitimate complaints</li>
+    <li>If guest is not satisfied with 10% reduction, escalate to manager</li>
+  </ul>
 
-  <li><strong>Important Rules:</strong>
-    <ul>
-      <li>Do NOT ask about the guest’s disability</li>
-      <li>Do NOT deny access</li>
-      <li>Do NOT charge pet fees</li>
-    </ul>
-  </li>
+  <h3>Service Animal Disputes</h3>
+  <h4>Quick Answer</h4>
+  <ul>
+    <li>Service dogs must be allowed.</li>
+    <li>No pet fees apply.</li>
+    <li>Do not ask about the guest’s disability.</li>
+  </ul>
 
-  <li><strong>Emotional Support Animal?</strong>
-    <ul>
-      <li>Not legally a service animal</li>
-      <li>Pet policy applies</li>
-    </ul>
-  </li>
-</ul>
+  <h4>If a Guest Disputes the Policy</h4>
+  <ul>
+    <li>Stay calm and professional.</li>
+    <li>Explain that service animals are protected under BC law and are not subject to pet fees.</li>
+    <li>Use the BC Guide Dog and Service Dog Act references above if needed.</li>
+    <li>If the situation continues, note it in the log and escalate to a manager.</li>
+  </ul>
 
-<h4>References</h4>
-<ul>
-  <li><a href="https://www.bclaws.gov.bc.ca/civix/document/id/complete/statreg/15017" target="_blank">BC Guide Dog and Service Dog Act</a></li>
-  <li><a href="https://www2.gov.bc.ca/gov/content/justice/human-rights/guide-and-service-dog" target="_blank">Guide Dog and Service Dog Certification – Province of BC</a></li>
-  <li><a href="https://www2.gov.bc.ca/assets/gov/justice/human-rights/guide-service-dog/guide-service-dog-fact-sheet.pdf" target="_blank">Fact Sheet: Service & Guide Dogs – Government of BC</a></li>
-</ul>
+  <h4>If Staff Are Unsure</h4>
+  <ul>
+    <li>Ask if it is a guide or service dog.</li>
+    <li>If needed, request to see the BC certification card.</li>
+    <li>If the guest confirms it is a service dog, allow access and document the situation if needed.</li>
+  </ul>
 
-<!-- ===================== -->
-<!-- TROUBLESHOOTING -->
-<!-- ===================== -->
+  <h3>Unaccompanied Minors</h3>
+  <ul>
+    <li>Minimum age to check in unaccompanied: 16</li>
+    <li>Required: completed unaccompanied minor consent form + Canary CC auth from parent/guardian</li>
+  </ul>
+</div>
 
-<h2>Troubleshooting</h2>
+<!-- HOUSEKEEPING -->
+<div class="section" id="sec-housekeeping">
+  <h2>Housekeeping & Maintenance</h2>
+  <h3>Bikes</h3>
+  <p>4 complimentary bikes in the lobby. Hotel guests only. Leisure use only — not for commuting to work. Guest must sign a waiver every time they borrow a bike.</p>
+  <h3>Printer</h3>
+  <p>Front desk and large printer issues: contact <strong>NextGen Automation</strong> — <a href="mailto:service@nxga.ca">service@nxga.ca</a> | 1-888-594-9499.</p>
+</div>
 
-<h3>Service Animal Disputes</h3>
+<!-- TRAINING VIDEOS -->
+<div class="section" id="sec-videos">
+  <h2>Training Videos</h2>
+  <p style="color:#5a6e7e;font-size:14px;margin-bottom:1.5rem">Replace each placeholder with a YouTube embed URL or Google Drive video link.</p>
+  <h3>Opera PMS</h3>
+  <div class="video-grid">
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Making a Reservation</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Check-in Process</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Check-out Process</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Direct Bill Checkout</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Switching Direct Bill Company</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Adding Routing Instructions</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Posting Adjustments & Discounts</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Room Moves & Upgrades</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Extending a Stay</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">No-Show Process</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Group Reservations</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Park & Fly Reservation</div><div class="vp-sub">Replace with video URL</div></div>
+  </div>
+  <h3>Payments & Billing</h3>
+  <div class="video-grid">
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Pre-Authorization</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Reversing a Cash Payment</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">OTA Prepaid & Tax Types</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Daily Cash Checkout Process</div><div class="vp-sub">Replace with video URL</div></div>
+  </div>
+  <h3>Airlines & Crews</h3>
+  <div class="video-grid">
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Airline Crew Check-in</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">StormX — Distressed Passengers</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">WestJet Room Assignment Sheet</div><div class="vp-sub">Replace with video URL</div></div>
+  </div>
+  <h3>Systems & Equipment</h3>
+  <div class="video-grid">
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">WiFi Troubleshooting</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Shaw Cable Box Replacement</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Elavon CC Terminal</div><div class="vp-sub">Replace with video URL</div></div>
+    <div class="video-placeholder"><div class="vp-icon"></div><div class="vp-label">Chromecast Setup</div><div class="vp-sub">Replace with video URL</div></div>
+  </div>
+</div>
 
-<h4>Quick Answer</h4>
-<ul>
-  <li>Service dogs must be allowed</li>
-  <li>No pet fees apply</li>
-  <li>Do not ask about disability</li>
-</ul>
+<!-- CONTACTS -->
+<div class="section" id="sec-contacts">
+  <h2>Contacts & Links</h2>
+  <h3>Emergency Contacts</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>911</h4><p>Fire, Police, Medical</p></div>
+    <div class="contact-card"><h4>Nick (GM)</h4><p>Cell: 250-893-2794</p><p>Home: 250-388-5518</p></div>
+    <div class="contact-card"><h4>Lorne (FOM)</h4><p>250-882-4647</p></div>
+    <div class="contact-card"><h4>Andrew Hashmi</h4><p>250-889-4873</p><p style="font-size:12px;color:#888">Major emergencies only if Nick/Lorne unreachable</p></div>
+    <div class="contact-card"><h4>Alarm Company</h4><p>1-800-611-9743</p></div>
+    <div class="contact-card"><h4>RCMP Non-Emergency</h4><p>250-656-3931</p></div>
+    <div class="contact-card"><h4>WestJet Medical</h4><p>1-480-379-1940</p></div>
+    <div class="contact-card"><h4>Earthquake/Flood/Spills</h4><p>1-800-663-3456</p></div>
+    <div class="contact-card"><h4>Gas Emergency</h4><p>911 or 1-800-663-9911</p></div>
+    <div class="contact-card"><h4>Poison Control</h4><p>1-800-567-8911</p></div>
+    <div class="contact-card"><h4>BC Hydro (Power)</h4><p>1-888-769-3766</p></div>
+  </div>
+  <h3>Service Companies</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>Elevator</h4><p>ATTA Elevator</p><a href="tel:2502201009">250-220-1009</a></div>
+    <div class="contact-card"><h4>Fire Alarm</h4><p>Troy Life & Fire Safety</p><a href="tel:2504751076">250-475-1076</a></div>
+    <div class="contact-card"><h4>Fire Monitoring</h4><p>Bullet Security (Pw: BEAR)</p><a href="tel:18002826544">1-800-282-6544</a></div>
+    <div class="contact-card"><h4>Gas (Non-Emergency)</h4><p>Terasen Gas</p><a href="tel:18882242710">1-888-224-2710</a></div>
+    <div class="contact-card"><h4>Electrician</h4><p>Slater Electric</p><a href="tel:2508833794">250-883-3794</a></div>
+    <div class="contact-card"><h4>Plumbing</h4><p>Battalion Plumbing</p><a href="tel:2508573836">250-857-3836</a></div>
+    <div class="contact-card"><h4>Printer</h4><p>NextGen Automation</p><a href="mailto:service@nxga.ca">service@nxga.ca</a><br><a href="tel:18885949499">1-888-594-9499</a></div>
+    <div class="contact-card"><h4>Phone System</h4><p>Sunco Service Desk</p><a href="mailto:helpdesk@sunco.ca">helpdesk@sunco.ca</a><br>1-833-342-5336</div>
+    <div class="contact-card"><h4>Tech Support</h4><p>RTGroup.ca</p><a href="mailto:support@rtgroup.ca">support@rtgroup.ca</a><br>250-412-3785</div>
+  </div>
+  <h3>Internet & Cable (Shaw)</h3>
+  <table>
+    <tr><th>Issue</th><th>Number</th></tr>
+    <tr><td>Cable box (Account: 012-7112-3840)</td><td>1-877-742-9249 → 1,2,1,4</td></tr>
+    <tr><td>Entire hotel internet</td><td>1-855-249-9434, Option 2</td></tr>
+    <tr><td>Individual WiFi / casting</td><td>1-800-581-4407</td></tr>
+  </table>
+  <h3>Airlines</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>WestJet</h4><a href="mailto:Morag.Misselbrook@fleetcor.com">Morag.Misselbrook@fleetcor.com</a><br><a href="mailto:Vanessa.Dusk-Strom@fleetcor.com">Vanessa.Dusk-Strom@fleetcor.com</a><br>Crew changes: 612-430-6305<br>Medical: 1-480-379-1940</div>
+    <div class="contact-card"><h4>Air Canada</h4><a href="mailto:Jeannine.Lang@apiglobalsolutions.com">Jeannine.Lang@apiglobalsolutions.com</a><br>Crew Scheduling: 516-507-3000<br>Incidents: 514-828-3350</div>
+    <div class="contact-card"><h4>Pacific Coastal</h4><a href="mailto:crewcontrol@pacificcoastal.com">crewcontrol@pacificcoastal.com</a><br>Scheduling: 604-214-2373<br>Dispatch: 604-270-1920<br>Distressed: 604-910-9997</div>
+    <div class="contact-card"><h4>Porter</h4><a href="mailto:olivia.salter@flyporter.com">olivia.salter@flyporter.com</a><br><a href="mailto:crewsched@flyporter.com">crewsched@flyporter.com</a><br>416-619-8571</div>
+    <div class="contact-card"><h4>KF Aerospace (Kelowna)</h4><a href="mailto:m.bergen@kfaero.ca">m.bergen@kfaero.ca</a></div>
+    <div class="contact-card"><h4>Traveliance</h4><p>1-847-718-9181</p></div>
+    <div class="contact-card"><h4>LA-Limo</h4><p>250-391-9000</p></div>
+    <div class="contact-card"><h4>Crewslink</h4><p>780-900-6466</p></div>
+  </div>
+  <h3>OTA Contacts</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>Expedia (ID: 22468)</h4><p>Channel Mgr: Jocelyn Cook<br><a href="mailto:joccook@expediagroup.com">joccook@expediagroup.com</a><br>604-360-7384</p><p>Customer: 1-800-469-1793<br>Hotel: 1-888-397-1786</p></div>
+    <div class="contact-card"><h4>Booking.com (ID: 295051)</h4><p>Channel Mgr: Mariia Levadna<br><a href="mailto:mariia.levadna@booking.com">mariia.levadna@booking.com</a><br>778-374-2714</p><p>Customer: 1-866-492-3245<br>Hotel: 1-514-228-5962</p></div>
+    <div class="contact-card"><h4>Agoda & Priceline (ID: 2454611)</h4><p>Priceline: 1-800-259-2091 ext 3<br>Agoda: 1-929-270-4046</p></div>
+    <div class="contact-card"><h4>Hotels.com</h4><p>1-800-243-8357</p></div>
+    <div class="contact-card"><h4>Hotwire</h4><p>1-877-501-2466 / 2</p></div>
+    <div class="contact-card"><h4>Orbitz</h4><p>1-866-672-4891 / 1</p></div>
+    <div class="contact-card"><h4>Travelocity</h4><p>1-855-201-7820</p></div>
+  </div>
+  <h3>Opera & Wyndham Support</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>Wyndham Support</h4><p>855-849-3487</p></div>
+    <div class="contact-card"><h4>Oracle (Opera)</h4><p>866-708-0823</p></div>
+    <div class="contact-card"><h4>Wyndham Rewards</h4><p>1-866-996-7937</p></div>
+    <div class="contact-card"><h4>Wyndham Central Res</h4><p>1-800-622-0499</p></div>
+  </div>
+  <h3>Nearby Hotels (Walk-in Referrals)</h3>
+  <div class="contact-grid">
+    <div class="contact-card"><h4>Best Western</h4><p>250-656-4441</p></div>
+    <div class="contact-card"><h4>Marriott</h4><p>250-900-1818</p></div>
+    <div class="contact-card"><h4>Sidney Waterfront</h4><p>250-656-1131</p></div>
+    <div class="contact-card"><h4>Sidney Pier</h4><p>250-655-9445</p></div>
+    <div class="contact-card"><h4>Quality Inn</h4><p>250-652-1146</p></div>
+    <div class="contact-card"><h4>Motel 6</h4><p>250-652-4464</p></div>
+    <div class="contact-card"><h4>Holiday Inn</h4><p>250-704-4656</p></div>
+    <div class="contact-card"><h4>Days Inn Uptown</h4><p>250-388-6611</p></div>
+    <div class="contact-card"><h4>Days Inn Inner Harbour</h4><p>250-386-3451</p></div>
+    <div class="contact-card"><h4>Days Inn Vancouver Airport</h4><p>250-227-7746</p></div>
+  </div>
+  <h3>Useful Links</h3>
+  <ul>
+    <li><a href="https://docs.oracle.com/cd/F18689_01/doc.193/f23597/title.htm" target="_blank">Opera Help Page</a></li>
+    <li><a href="https://docs.oracle.com/en/industries/hospitality/opera-cloud/21.4/ocsuh/part_opera_cloud_videos.htm" target="_blank">Opera Video Help</a></li>
+    <li><a href="https://www.youtube.com/channel/UCxRKK3Ze2Y7Ot6Yx1zbXa6w/videos" target="_blank">MTech Videos</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1_EmCUdfmXpyaRTV-7zo-BnREijj9vE79KLPTVtjI6ZM/edit#gid=0" target="_blank">Park & Fly Parking Availability</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1KfYh2akcNvSKkPIwGAn5MFhsJNKJZNbOde7auWFhqPs/edit#gid=0" target="_blank">Group Bookings Sheet</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1_UAXAXGTMUvMazJl1_GQXUC0TKkX9_CYYoCuDMIyqSU/edit?usp=sharing" target="_blank">Cot Tracking Sheet</a></li>
+    <li><a href="https://docs.google.com/spreadsheets/d/1RVBwO_fRHBstIXCM3HU024CXgFzrxLQY9MmusfdsUF8/edit?usp=sharing" target="_blank">Gift Certificate Tracking</a></li>
+    <li><a href="https://sites.google.com/view/yyjdaysinn-help/airline-sign-in-sheets" target="_blank">Airline Sign-in Sheets</a></li>
+    <li><a href="https://sites.google.com/view/yyjdaysinn-help/documents" target="_blank">Documents</a></li>
+    <li><a href="https://sites.google.com/view/yyjdaysinn-help/updates" target="_blank">Updates</a></li>
+    <li><a href="mailto:fom@airportdaysinn.ca">Email FOM to request additions</a></li>
+  </ul>
+</div>
 
-<h4>If Guest Challenges Policy</h4>
-<ul>
-  <li>Stay calm and professional</li>
-  <li>Explain: “Service animals are protected under BC law and are not subject to pet fees”</li>
-  <li>If needed, reference BC Guide Dog & Service Dog Act</li>
-</ul>
+</div>
 
-<h4>If Staff Are Unsure</h4>
-<ul>
-  <li>Ask if it is a service dog</li>
-  <li>Optionally request certification</li>
-  <li>If still unclear → allow access and note in log</li>
-</ul>
+<script>
+const sections={
+  home:'sec-home',
+  rooms:'sec-rooms','room-features':'sec-room-features',amenities:'sec-amenities',
+  shuttle:'sec-shuttle',wifi:'sec-wifi',tv:'sec-tv',
+  reservations:'sec-reservations',rates:'sec-rates',otas:'sec-otas',taxes:'sec-taxes',
+  checkin:'sec-checkin',checkout:'sec-checkout',sellouts:'sec-sellouts',payments:'sec-payments',
+  airlines:'sec-airlines',distressed:'sec-distressed',
+  rewards:'sec-rewards',security:'sec-security',guestpolicies:'sec-guestpolicies',housekeeping:'sec-housekeeping',
+  videos:'sec-videos',contacts:'sec-contacts'
+};
 
-<h4>Escalation</h4>
-<ul>
-  <li>If situation becomes difficult → contact manager</li>
-</ul>
+function showSection(key){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('#nav-list a').forEach(a=>a.classList.remove('active'));
+  const sec=document.getElementById(sections[key]);
+  if(sec){sec.classList.add('active');removeHighlights()}
+  document.querySelectorAll('#nav-list a').forEach(a=>{
+    if(a.dataset.section===key)a.classList.add('active');
+  });
+  document.getElementById('main').scrollTop=0;
+}
+
+document.querySelectorAll('#nav-list a[data-section]').forEach(a=>{
+  a.addEventListener('click',e=>{e.preventDefault();showSection(a.dataset.section);history.replaceState(null,'','#'+a.dataset.section)});
+});
+
+document.querySelectorAll('[data-section-link]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const key=a.getAttribute('data-section-link');
+    showSection(key);
+  });
+});
+
+const initialHash=window.location.hash.replace('#','');
+if(initialHash && sections[initialHash]){
+  showSection(initialHash);
+} else {
+  showSection('home');
+}
+
+
+function removeHighlights(){
+  document.querySelectorAll('.highlight').forEach(el=>{el.outerHTML=el.innerHTML});
+}
+
+function highlight(node,term){
+  if(node.nodeType===3){
+    const idx=node.textContent.toLowerCase().indexOf(term);
+    if(idx>=0){
+      const span=document.createElement('span');span.className='highlight';
+      span.textContent=node.textContent.substring(idx,idx+term.length);
+      const before=document.createTextNode(node.textContent.substring(0,idx));
+      const after=document.createTextNode(node.textContent.substring(idx+term.length));
+      const parent=node.parentNode;
+      parent.insertBefore(before,node);parent.insertBefore(span,node);parent.insertBefore(after,node);parent.removeChild(node);
+    }
+  } else if(node.nodeType===1&&node.tagName!=='SCRIPT'&&node.tagName!=='STYLE'){
+    Array.from(node.childNodes).forEach(c=>highlight(c,term));
+  }
+}
+
+const searchData=[];
+Object.keys(sections).forEach(key=>{
+  const sec=document.getElementById(sections[key]);
+  if(!sec)return;
+  sec.querySelectorAll('h2,h3,h4').forEach(h=>{
+    searchData.push({label:h.textContent.trim(),section:key,sectionLabel:sec.querySelector('h2')?sec.querySelector('h2').textContent.trim():key,el:h});
+  });
+  sec.querySelectorAll('td,p,li').forEach(el=>{
+    const t=el.textContent.trim();
+    if(t.length>3&&t.length<120){
+      searchData.push({label:t,section:key,sectionLabel:sec.querySelector('h2')?sec.querySelector('h2').textContent.trim():key,el});
+    }
+  });
+});
+
+const inp=document.getElementById('search-input');
+const res=document.getElementById('search-results');
+
+inp.addEventListener('input',()=>{
+  const q=inp.value.trim().toLowerCase();
+  if(q.length<2){res.style.display='none';return}
+  const matches=searchData.filter(d=>d.label.toLowerCase().includes(q)).slice(0,12);
+  if(!matches.length){res.style.display='none';return}
+  res.innerHTML=matches.map((m,i)=>`<div class="sr-item" data-idx="${i}"><div>${esc(m.label.length>70?m.label.substring(0,70)+'…':m.label)}</div><div class="sr-section">${esc(m.sectionLabel)}</div></div>`).join('');
+  res._matches=matches;res.style.display='block';
+});
+
+res.addEventListener('click',e=>{
+  const item=e.target.closest('.sr-item');if(!item)return;
+  const m=res._matches[item.dataset.idx];
+  showSection(m.section);
+  setTimeout(()=>{removeHighlights();highlight(document.getElementById(sections[m.section]),inp.value.trim().toLowerCase());m.el.scrollIntoView({behavior:'smooth',block:'center'});},50);
+  res.style.display='none';inp.value='';
+});
+
+document.addEventListener('click',e=>{if(!e.target.closest('#search-wrap'))res.style.display='none'});
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+</script>
+</body>
+</html>
